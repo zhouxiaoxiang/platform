@@ -1,0 +1,13 @@
+0.1
+---
+
+- Platform on RabbitMQ.
+-- All services can work in the internal net.
+
+0.2
+---
+
+- Support python environment test.
+-- Add tox to test various python environments.
+
+
