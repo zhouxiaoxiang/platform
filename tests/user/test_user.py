@@ -3,7 +3,6 @@
 
 import pytest
 from services.user.user import *
-from nameko.standalone.rpc import ClusterRpcProxy
 
 
 @pytest.fixture
@@ -20,9 +19,3 @@ def test_UserService(newSession):
     service.add(conn_id='9', user_name='', email="x@y", role='')
     assert newSession.query(Users.mail_address).one() == (u'x@y', )
 
-
-#def test_UserService_from_client():
-#    with ClusterRpcProxy(CONFIG) as cli:
-#        result = cli.user_service.add(
-#            conn_id='10', user_name='', email="x@y", role='')
-#        assert result is True

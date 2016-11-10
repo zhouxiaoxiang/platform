@@ -1,0 +1,41 @@
+Metadata-Version: 1.1
+Name: platform
+Version: 0.3
+Summary: Cereson Platform.
+Home-page: UNKNOWN
+Author: UNKNOWN
+Author-email: UNKNOWN
+License: UNKNOWN
+Description: PLATFORM README
+        ====================
+        
+        Written by Eric Zhou.
+        <xiaoxiang.cn@gmail.com>
+        
+        Getting Started
+        -----------------
+        
+        - Begin from here:
+        --./setup.py
+        
+        
+        
+        0.1
+        ---
+        
+        - Platform on RabbitMQ.
+        -- All services can work in the internal net.
+        
+        0.2
+        ---
+        
+        - Support python environment test.
+        -- Add tox to test various python environments.
+        
+        
+        
+Keywords: platform
+Platform: UNKNOWN
+Classifier: Programming Language :: Python
+Classifier: Framework :: Platform
+Classifier: Topic :: Internet :: HTTP

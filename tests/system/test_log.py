@@ -1,11 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from services.system.log import SysLog
-from services.system.log import SysEventLog
-from services.system.log import UserEventLog
-from services.system.log import StockEventLog
-from services.system.log import NopickedEventLog
+from system.log import *
 from logging import Logger
 from pymongo.collection import Collection
 

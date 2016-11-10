@@ -1,0 +1,7 @@
+[run]
+omit = tests/*
+source = services
+
+[paths]
+source = services
+

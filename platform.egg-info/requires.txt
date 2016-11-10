@@ -1,0 +1,13 @@
+mogo
+nameko
+pymongo
+logging
+sqlalchemy
+nameko_sqlalchemy
+mysql-python
+pymongo
+pytest
+multiprocessing
+tox
+mongolog
+PyYAML
