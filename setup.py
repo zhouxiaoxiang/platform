@@ -54,12 +54,12 @@ CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 setup = extend(cmd)(setup)
 
 with open('requirements.txt') as f:
-    requires = f.read().splitlines()
+    requires = f.read()
 
 
 setup(
     name='platform',
-    version='0.3',
+    version='0.5',
     description='Cereson Platform.',
     long_description=README + '\n\n' + CHANGES,
     classifiers=[

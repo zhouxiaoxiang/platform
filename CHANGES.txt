@@ -10,4 +10,22 @@
 - Support python environment test.
 -- Add tox to test various python environments.
 
+0.3
+---
+
+- Clear service code.
+-- Keep it simple and easy.
+
+0.4
+---
+
+- Make setup.py controll all.
+-- Now, it's easy to use.
+-- It's easy to extend, too.
+
+0.5
+---
+
+- Add pydoc.
+-- Doc is important!
 
