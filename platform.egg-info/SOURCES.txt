@@ -5,7 +5,6 @@ dao/user.py
 platform.egg-info/PKG-INFO
 platform.egg-info/SOURCES.txt
 platform.egg-info/dependency_links.txt
-platform.egg-info/entry_points.txt
 platform.egg-info/not-zip-safe
 platform.egg-info/requires.txt
 platform.egg-info/top_level.txt

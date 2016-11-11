@@ -11,3 +11,4 @@ multiprocessing
 tox
 mongolog
 PyYAML
+docopt
