@@ -1,2 +1,17 @@
 .coverage
 .tox/
+./tests/user/__pycache__/test_user.cpython-27-PYTEST.pyc
+./tests/user/__init__.pyc
+./tests/system/__pycache__/test_log.cpython-27-PYTEST.pyc
+./tests/system/__init__.pyc
+./tests/__init__.pyc
+./system/net.pyc
+./system/db.pyc
+./system/log.pyc
+./system/__init__.pyc
+./system/conf.pyc
+./dao/user.pyc
+./dao/__init__.pyc
+./services/user/user.pyc
+./services/user/__init__.pyc
+./services/__init__.pyc
