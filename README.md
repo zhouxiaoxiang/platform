@@ -26,7 +26,7 @@ Apply microservices and TDD makes enterprises more productive.
 
 ![run](https://github.com/zhouxiaoxiang/platform/raw/master/doc/3_run.gif)
 
-( Run unit tests.
+- Run unit tests.
 
 ![test](https://github.com/zhouxiaoxiang/platform/raw/master/doc/4_test.gif)
 
