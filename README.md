@@ -14,23 +14,23 @@ Appreciate your suggestion.
 
 Apply microservices and TDD makes enterprises more productive.
 
-1. Show all callable commands.
+- Show all callable commands.
 
 ![help](https://github.com/zhouxiaoxiang/platform/raw/master/doc/1_help.gif)
 
-2. Install packages.
+- Install packages.
 
 ![develop](https://github.com/zhouxiaoxiang/platform/raw/master/doc/2_develop.gif)
 
-3. Run some services.
+- Run some services.
 
 ![run](https://github.com/zhouxiaoxiang/platform/raw/master/doc/3_run.gif)
 
-4. Run unit tests.
+( Run unit tests.
 
 ![test](https://github.com/zhouxiaoxiang/platform/raw/master/doc/4_test.gif)
 
-5. Run system test.
+- Run system test.
 
 ![sys](https://github.com/zhouxiaoxiang/platform/raw/master/doc/5_sys.gif)
 
@@ -41,23 +41,23 @@ OK, it's all.
 快速构建服务系统，如果你了解TDD，会让你如鱼得水，如果你不了解，能让你醍醐灌顶。
 这套软件的宗旨，是让企业更富有创造力，让工程师迸发出惊人的创造力，谁用谁知道:)
 
-1. 所有的使用方法在这里：
+- 所有的使用方法在这里：
 
 ![help](https://github.com/zhouxiaoxiang/platform/raw/master/doc/1_help.gif)
 
-2. 安装软件包：
+- 安装软件包：
 
 ![develop](https://github.com/zhouxiaoxiang/platform/raw/master/doc/2_develop.gif)
 
-3. 运行服务：
+- 运行服务：
 
 ![run](https://github.com/zhouxiaoxiang/platform/raw/master/doc/3_run.gif)
 
-4. 运行单元测试：
+- 运行单元测试：
 
 ![test](https://github.com/zhouxiaoxiang/platform/raw/master/doc/4_test.gif)
 
-5. 运行系统测试：
+- 运行系统测试：
 
 ![sys](https://github.com/zhouxiaoxiang/platform/raw/master/doc/5_sys.gif)
 
