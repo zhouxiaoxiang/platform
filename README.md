@@ -3,7 +3,10 @@
 
 ## About me
 =====
-Eric Zhou [MAIL](mailto:xiaoxiang.cn@gmail.com)
+|  Author    |         Mail            |
+| ---------  | ----------------------  |
+| Eric Zhou  | xiaoxiang.cn@gmail.com  |
+
 Appreciate your suggestion.
 
 ## Getting Started
