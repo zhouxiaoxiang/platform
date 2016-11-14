@@ -7,7 +7,7 @@ Maintain all user operations.
 #-----------------------------------------------------------------------------
 
 # Our own packages
-from system.net import *
+from system.app import *
 
 # Stdlib
 import time
