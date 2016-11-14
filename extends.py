@@ -1,11 +1,8 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import os
 import sys
 
 
-def run_service(service):
+def _run(service):
     loc = "services"
     cmd = "nameko run"
     arg = "--broker amqp://guest:guest@localhost"
@@ -16,31 +13,42 @@ def run_service(service):
             break
 
 
-def platform_run(services):
-    for service in services:
-        from multiprocessing import Process
-        Process(target=run_service, args=(service, )).start()
-
-
-def platform_test(tests):
+def _test(test=None):
     loc = "tests"
     cmd = "py.test"
     fmt = "test_%s.py"
 
-    if len(tests) < 1:
+    if test is None:
         os.system('%s' % (cmd))
         return
 
-    for test in tests:
-        for path, _, fs in os.walk(loc):
-            if (fmt % test) in fs:
-                os.system("cd %s; %s" % (path, cmd))
-                break
+    for path, _, fs in os.walk(loc):
+        if (fmt % test) in fs:
+            os.system("cd %s; %s" % (path, cmd))
+            break
 
 
-def platform_sys(argv):
+def _sys(arg):
     cmd = "tox"
-    os.system('%s %s' % (cmd, " ".join(argv)))
+    os.system('%s %s' % (cmd, arg))
+
+
+def platform_run(services):
+    for service in services:
+        from multiprocessing import Process
+        Process(target=_run, args=(service, )).start()
+
+
+def platform_test(tests):
+    if not tests:
+        _test()
+    else:
+        for test in tests:
+            _test(test)
+
+
+def platform_sys(arg):
+    _sys(" ".join(arg))
 
 
 def platform_extend(extends, argv):

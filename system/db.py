@@ -6,7 +6,7 @@ Base = declarative_base()
 BaseRegion = declarative_base()
 BaseFiling = declarative_base()
 
-class DB(object):
+class System_db(object):
     def __init__(self):
         self.engine = create_engine(conf.DB_URL)
 

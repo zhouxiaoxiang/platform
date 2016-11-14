@@ -24,9 +24,14 @@ Usage:
         ./setup.py sys             => run tests under various enviroments
 """
 
-import os
 import sys
-from setuptools import setup, find_packages
+from setuptools import setup
+
+
+attrs = {"name": 'platform',
+         "version": '0.5',
+         "description": 'Cereson Platform.',
+         }
 
 
 cmd = sys.argv[1:]
@@ -35,43 +40,30 @@ if not cmd:
     sys.exit()
 
 
-def extend(argv):
+def platform_extend(argv):
     def _extend(func):
-        def __extend(*args, **kwargs):
-            try:
-                import extends
-                extends.platform_extend(extends, argv)
-            finally:
-                pass
-            return func(*args, **kwargs)
+        def __extend(**attrs):
+            import extends
+            from setuptools import find_packages
+            extends.platform_extend(extends, argv)
+
+            with open('README.txt') as f:
+                long_description = f.read()
+
+            with open('CHANGES.txt') as f:
+                long_description += "\n\n" + f.read()
+
+            with open('requirements.txt') as f:
+                attrs["install_requires"] = f.read()
+
+            attrs["long_description"] = long_description
+            attrs["packages"] = find_packages()
+            attrs["include_package_data"] = True
+            attrs["zip_safe"] = False
+
+            return func(**attrs)
         return __extend
     return _extend
 
 
-here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, 'README.txt')).read()
-CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
-setup = extend(cmd)(setup)
-
-with open('requirements.txt') as f:
-    requires = f.read()
-
-
-setup(
-    name='platform',
-    version='0.5',
-    description='Cereson Platform.',
-    long_description=README + '\n\n' + CHANGES,
-    classifiers=[
-        "Programming Language :: Python",
-        "Framework :: Platform",
-        "Topic :: Internet :: HTTP",
-    ],
-    author='',
-    author_email='',
-    url='',
-    keywords='platform',
-    packages=find_packages(),
-    include_package_data=True,
-    zip_safe=False,
-    install_requires=requires)
+platform_extend(cmd)(setup)(**attrs)

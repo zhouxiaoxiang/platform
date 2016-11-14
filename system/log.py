@@ -6,33 +6,36 @@ import logging
 from mongolog.handlers import MongoHandler
 
 
-""" This module will specify db url, return a log handler. """
+class _log(object):
+    ''' Abstract log '''
 
-
-class Log(object):
     host = "localhost"
     db = None
     tb = None
-    """ Establish a connection to db. """
+
 
     def __init__(self, module="test"):
+        ''' Establish a connection to db. '''
         self.conn = mogo.connect(self.host)
         self.log = self.conn[self.db][self.tb]
         self.module = module
 
-    """ Return log handler 
-
-    Use collection, althrough knowledge about mongodb is required.
-    """
 
     def get(self):
+        ''' Return log handler '''
         return self.log
 
 
-''' Create specific log handler '''
+class System_sysLog(_log):
+    ''' Create syslog handler 
+        Return standard log
 
+    Example::
+        from system.log import System_sysLog 
+        log = System_sysLog("my module").get
+        log.info("foo")
+    '''
 
-class SysLog(Log):
     db = "sysLog"
     tb = "log"
 
@@ -42,40 +45,74 @@ class SysLog(Log):
         self.log.addHandler(MongoHandler.to(self.tb, self.db, self.host))
 
     def get(self):
+        ''' Return standard logging handler '''
         return self.log
 
 
-''' These log types is due to various applications.'''
+class System_sysEventLog(_log):
+    ''' Create event log handler 
+        Return mongodb handler
 
+    Example::
+        from system.log import System_sysEventLog
+        log = System_sysEventLog("my module").get
+        log.info("foo")
+    '''
 
-class SysEventLog(Log):
     db = "eventLog"
     tb = "sys"
 
     def __init__(self,  module="test"):
-        super(SysEventLog, self).__init__()
+        super(System_sysEventLog, self).__init__()
 
 
-class UserEventLog(Log):
+class System_userEventLog(_log):
+    ''' Create user event log handler 
+        Return mongodb handler
+
+    Example::
+        from system.log import System_userEventLog
+        log = System_userEventLog("my module").get
+        log.info("foo")
+    '''
+
     db = "eventLog"
     tb = "user"
 
     def __init__(self,  module="test"):
-        super(UserEventLog, self).__init__()
+        super(System_userEventLog, self).__init__()
 
 
-class StockEventLog(Log):
+class System_stockEventLog(_log):
+    ''' Create stock event log handler 
+        Return mongodb handler
+
+    Example::
+        from system.log import System_stockEventLog
+        log = System_stockEventLog("my module").get
+        log.info("foo")
+    '''
+
     db = "eventLog"
     tb = "stock"
 
     def __init__(self,  module="test"):
-        super(StockEventLog, self).__init__()
+        super(System_stockEventLog, self).__init__()
 
 
-class NopickedEventLog(Log):
+class System_nopickedEventLog(_log):
+    ''' Create nopicked event log handler 
+        Return mongodb handler
+
+    Example::
+        from system.log import System_nopickedEventLog
+        log = System_nopickedEventLog("my module").get
+        log.info("foo")
+    '''
+
     db = "eventLog"
     tb = "nopicked"
 
     def __init__(self,  module="test"):
-        super(NopickedEventLog, self).__init__()
+        super(System_nopickedEventLog, self).__init__()
 

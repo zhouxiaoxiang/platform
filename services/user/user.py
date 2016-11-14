@@ -30,7 +30,7 @@ class UserService(object):
 
     name = "user_service"
 
-    def __init__(self, db=db):
+    def __init__(self, db=system_db):
         self.db = db
 
     @rpc

@@ -1,4 +1,4 @@
-Metadata-Version: 1.1
+Metadata-Version: 1.0
 Name: platform
 Version: 0.5
 Summary: Cereson Platform.
@@ -6,25 +6,30 @@ Home-page: UNKNOWN
 Author: UNKNOWN
 Author-email: UNKNOWN
 License: UNKNOWN
-Description: PLATFORM README
-        ====================
-        
-        Written by Eric Zhou.
-        <xiaoxiang.cn@gmail.com>
-        
-        Getting Started
+Description: # PLATFORM README
         -----------------
         
-        - Begin from here:
-        --./setup.py
+        Apply microservices and TDD makes enterprises more productive.
         
-        -----------------
-        client:
-        ```
-        from nameko.standalone.rpc import ClusterRpcProxy
-        with ClusterRpcProxy({"AMQP_URI":"amqp://guest:guest@localhost"}) as cli:
-        	result = cli.user_service.add(conn_id='10', user_name='', email="x@y", role='')
-        ```
+        - Show all callable commands.
+        
+        ./setup.py
+        
+        - Install packages.
+        
+        ./setup.py develop
+        
+        - Run some services.
+        
+        ./setup.py run user
+        
+        - Run unit tests.
+        
+        ./setup.py test
+        
+        - Run system test.
+        
+        ./setup.py sys
         
         
         
@@ -60,8 +65,4 @@ Description: PLATFORM README
         -- Doc is important!
         
         
-Keywords: platform
 Platform: UNKNOWN
-Classifier: Programming Language :: Python
-Classifier: Framework :: Platform
-Classifier: Topic :: Internet :: HTTP
