@@ -3,6 +3,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from system import conf
 Base = declarative_base()
+BaseRegion = declarative_base()
+BaseFiling = declarative_base()
 
 class DB(object):
     def __init__(self):

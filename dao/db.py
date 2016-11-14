@@ -907,15 +907,6 @@ class SiteConfig(Base):
     value = Column(types.Unicode(3000), nullable=True, unique=None, default=u'')
 
 
-class SkuFetchMode(Base):
-    __tablename__ = 'sku_fetch_mode'
-    sku = Column(types.Unicode(255), nullable=False, unique=None, default=None, primary_key=True, autoincrement=True)
-    name = Column(types.Unicode(1024), nullable=True, unique=None, default=u'')
-    fetch_mode = Column(types.Unicode(255), nullable=True, unique=None, default=u'default')
-    add_time = Column(types.DateTime(), nullable=True, unique=None, default=u'0000-00-00 00:00:00')
-    last_update_time = Column(types.DateTime(), nullable=True, unique=None, default=u'0000-00-00 00:00:00')
-
-
 class TemplateFieldTypes(Base):
     __tablename__ = 'template_field_types'
     id_ai = Column(types.Integer(), nullable=False, unique=None, default=None, primary_key=True, autoincrement=True)
