@@ -29,10 +29,10 @@ import sys
 from setuptools import setup
 
 
-attrs = {"name": 'platform',
-         "version": '0.5',
-         "description": 'Cereson Platform.',
-         }
+version = {"name": 'platform',
+           "version": '0.5',
+           "description": 'Cereson Platform.',
+           }
 
 
 cmd = sys.argv[1:]
@@ -42,11 +42,13 @@ if not cmd:
 
 
 def platform_extend(argv):
+    import extends
+    extends.platform_extend(extends, argv)
+
     def _extend(func):
         def __extend(**attrs):
-            import extends
+
             from setuptools import find_packages
-            extends.platform_extend(extends, argv)
 
             with open('README.txt') as f:
                 long_description = f.read()
@@ -67,4 +69,4 @@ def platform_extend(argv):
     return _extend
 
 
-platform_extend(cmd)(setup)(**attrs)
+platform_extend(cmd)(setup)(**version)

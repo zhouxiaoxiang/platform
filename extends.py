@@ -8,7 +8,7 @@ def _doc(arg=None):
     out = "docs"
 
     os.system("%s -f -o %s services" % (cmd, out))
-    os.system("make html -C %s" % out)
+    os.system("make %s -C %s" % (arg, out))
 
 
 def _run(service):
@@ -43,7 +43,12 @@ def _sys(arg):
 
 
 def platform_doc(arg):
-    _doc(arg)
+    if not arg:
+        target = "html"
+    else:
+        target = " ".join(arg)
+
+    _doc(target)
 
 
 def platform_run(services):
