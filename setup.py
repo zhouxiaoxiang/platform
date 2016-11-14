@@ -19,10 +19,10 @@
 
 Usage:  
         ./setup.py develop         => install packages     
+        ./setup.py doc             => create project documents
         ./setup.py run [service]   => run some services, eg. user
         ./setup.py test            => run unit tests
-        ./setup.py sys             => run tests under various enviroments
-        ./setup.py doc             => create project documents
+        ./setup.py sys             => run python system tests
 """
 
 import sys

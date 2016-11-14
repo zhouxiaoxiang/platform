@@ -7,9 +7,8 @@ def _doc(arg=None):
     cmd = "sphinx-apidoc"
     out = "docs"
 
-    os.system("rm %s/services.* %s/modules.rst" % out)
-    os.system("%s -o %s services" % (cmd, out))
-    os.system("cd %s; make html" % out)
+    os.system("%s -f -o %s services" % (cmd, out))
+    os.system("make html -C %s" % out)
 
 
 def _run(service):
