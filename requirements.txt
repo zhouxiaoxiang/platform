@@ -12,3 +12,5 @@ tox
 mongolog
 PyYAML
 docopt
+sphinx
+

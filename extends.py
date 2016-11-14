@@ -2,6 +2,16 @@ import os
 import sys
 
 
+def _doc(arg=None):
+    loc = "services"
+    cmd = "sphinx-apidoc"
+    out = "docs"
+
+    os.system("rm %s/services.* %s/modules.rst" % out)
+    os.system("%s -o %s services" % (cmd, out))
+    os.system("cd %s; make html" % out)
+
+
 def _run(service):
     loc = "services"
     cmd = "nameko run"
@@ -31,6 +41,10 @@ def _test(test=None):
 def _sys(arg):
     cmd = "tox"
     os.system('%s %s' % (cmd, arg))
+
+
+def platform_doc(arg):
+    _doc(arg)
 
 
 def platform_run(services):

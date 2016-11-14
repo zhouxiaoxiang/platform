@@ -22,6 +22,7 @@ Usage:
         ./setup.py run [service]   => run some services, eg. user
         ./setup.py test            => run unit tests
         ./setup.py sys             => run tests under various enviroments
+        ./setup.py doc             => create project documents
 """
 
 import sys

@@ -36,7 +36,7 @@ Apply microservices and TDD makes enterprises more productive.
 
 OK, it's all.
 
-## 不懂英文的小白，下面是朕给你准备的。
+## 中文说明
 
 快速构建服务系统，如果你了解TDD，会让你如鱼得水，如果你不了解，能让你醍醐灌顶。
 这套软件的宗旨，是让企业更富有创造力，让工程师迸发出惊人的创造力，谁用谁知道:)
