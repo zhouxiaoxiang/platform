@@ -1,8 +1,6 @@
-pytest
-tox
-pytest-cov
-mock
 testtools
+mock
 fixtures
 flake8
 coverage
+pytest-cov

@@ -1,21 +1,27 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import pytest
 from services.user.user import *
 
 
-@pytest.fixture
+class DB:
+
+    def __init__(self):
+        self.objs = []
+
+    def add(self, obj):
+        self.objs.append(obj)
+
+    def commit(self):
+        pass
+
+    def query(self):
+        return self.objs
+
+@pytest.fixture(scope="module")
 def newSession():
-    engine = create_engine('mysql://root:root@localhost/test?charset=utf8')
-    Base.metadata.drop_all(engine)
-    Base.metadata.create_all(engine)
-    session_cls = sessionmaker(engine)
-    return session_cls()
+    return DB()
 
 
 def test_UserService(newSession):
     service = UserService(newSession)
     service.add(conn_id='9', user_name='', email="x@y", role='')
-    assert newSession.query(Users.mail_address).one() == (u'x@y', )
-
+    assert newSession.query()[-1].mail_address == 'x@y'

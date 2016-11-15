@@ -1,27 +1,14 @@
-"""
-Maintain all user operations.
-"""
+""" Maintain all user operations.  """
 
-#-----------------------------------------------------------------------------
-# Imports
-#-----------------------------------------------------------------------------
-
-# Our own packages
 from system.app import *
-
-# Stdlib
 import time
 from datetime import date, datetime, timedelta
 
 
 class UserService(object):
-    """
-    Support all user operations.
+    """ Support all user operations.
 
-    Examples
-    --------
-
-    Client can call this method from another node::
+    Examples:: Client can call this method from another node
     
         from nameko.standalone.rpc import import ClusterRpcProxy
         with ClusterRpcProxy({"AMQP_URI":"amqp://guest:guest@localhost"}) as cli:
@@ -36,9 +23,8 @@ class UserService(object):
     @rpc
     def add(self, conn_id, user_name, email, role, client_name=None, cell_phone='', 
             company='', all_kiosks=0, alert_same_kiosk=0, alert_all_kiosk=0):
-        """
-        Add a user
-        """
+        """ Add a user """
+
         current_date = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
         current_time = int(time.time())
 
@@ -66,8 +52,7 @@ class UserService(object):
 
     @rpc
     def delete(self, email):
-        """
-        Delete a user by user's email
-        """
+        """ Delete a user by user's email """
+
         self.db.query(Users).filter(Users.mail_address == email).delete()
         self.db.flush()

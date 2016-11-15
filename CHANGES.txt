@@ -29,3 +29,29 @@
 - Add pydoc.
 -- Doc is important!
 
+0.6
+---
+
+- Add sphinx.
+-- Supply docs.
+
+0.7
+
+- Unify naming.
+-- Add module's prefix to it's variables.
+
+0.8
+
+- Add configuration center
+-- Any service can store data in it.
+
+0.9
+
+- Add reload
+
+1.0
+
+- It's a tag
+-- Now it's time to develop all kinds of services.
+
+

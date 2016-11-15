@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import mogo
 import logging
 from mongolog.handlers import MongoHandler
@@ -32,7 +29,7 @@ class System_sysLog(_log):
 
     Example::
         from system.log import System_sysLog 
-        log = System_sysLog("my module").get
+        log = System_sysLog("my module").get()
         log.info("foo")
     '''
 
@@ -55,7 +52,7 @@ class System_sysEventLog(_log):
 
     Example::
         from system.log import System_sysEventLog
-        log = System_sysEventLog("my module").get
+        log = System_sysEventLog("my module").get()
         log.info("foo")
     '''
 
@@ -72,7 +69,7 @@ class System_userEventLog(_log):
 
     Example::
         from system.log import System_userEventLog
-        log = System_userEventLog("my module").get
+        log = System_userEventLog("my module").get()
         log.info("foo")
     '''
 
@@ -89,7 +86,7 @@ class System_stockEventLog(_log):
 
     Example::
         from system.log import System_stockEventLog
-        log = System_stockEventLog("my module").get
+        log = System_stockEventLog("my module").get()
         log.info("foo")
     '''
 
@@ -106,7 +103,7 @@ class System_nopickedEventLog(_log):
 
     Example::
         from system.log import System_nopickedEventLog
-        log = System_nopickedEventLog("my module").get
+        log = System_nopickedEventLog("my module").get()
         log.info("foo")
     '''
 
