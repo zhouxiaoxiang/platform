@@ -15,6 +15,13 @@
 ./services/user/user.pyc
 ./services/user/__init__.pyc
 ./services/__init__.pyc
+./services/__pycache__
+./services/user/__pycache__
+./dao/__pycache__
+./tests/__pycache__
+./tests/system/__pycache__
+./tests/user/__pycache__
+./system/__pycache__
 docs/_build/
 system/__init__.pyc
 system/app.pyc
