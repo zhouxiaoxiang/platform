@@ -23,5 +23,5 @@ def newSession():
 
 def test_UserService(newSession):
     service = UserService(newSession)
-    service.add(conn_id='9', user_name='', email="x@y", role='')
+    service.add_user(conn_id='9', user_name='', email="x@y", role='')
     assert newSession.query()[-1].mail_address == 'x@y'
