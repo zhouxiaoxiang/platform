@@ -1,30 +1,30 @@
-""" Maintain all user operations.  """
-
 from system.app import *
 import time
 from datetime import date, datetime, timedelta
 
 
-class UserService(object):
+class UserService(App):
 
-    """ Support all user operations.
+    """
+    Support all user operations.
 
-    Examples::
 
-        from nameko.standalone.rpc import ClusterRpcProxy
-        with ClusterRpcProxy({"AMQP_URI":"amqp://guest:guest@localhost"}) as services:
-            result = services.user_service.add(conn_id='10', user_name='', email="x@y", role='')
+    Examples
+    --------
+    Add a user.
+
+    >>> from nameko.standalone.rpc import ClusterRpcProxy
+    >>> CONFIG = {"AMQP_URI":"amqp://guest:guest@localhost"}
+    >>> with ClusterRpcProxy(CONFIG) as services:
+    >>>     result = services.user_service.add_user(conn_id='10', user_name='', email="x@y", role='')
     """
 
     name = "user_service"
 
-    def __init__(self, db=system_db):
-        self.db = db
-
     @rpc
-    def add_user(
-        self, conn_id, user_name, email, role, client_name=None, cell_phone='',
-            company='', all_kiosks=0, alert_same_kiosk=0, alert_all_kiosk=0):
+    def add_user(self, conn_id, user_name, email, role, client_name=None, 
+                 cell_phone='', company='', all_kiosks=0, alert_same_kiosk=0, 
+                 alert_all_kiosk=0):
         """ Add a user """
 
         current_date = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
@@ -52,6 +52,8 @@ class UserService(object):
 
     @rpc
     def get_user_email(self, conn_ids, role=None):
+        """ Get user's email """
+
         rows = self.db.query(Users).filter(Users.role == role)
         if conn_ids is not None:
             ore = None
@@ -62,36 +64,45 @@ class UserService(object):
 
     @rpc
     def get_user_info(self, email):
+        """ Get user by whose email """
+
         return self.db.query(Users).filter(Users.mail_address == email).first()
 
     @rpc
     def update_users_conn_id(self, conn_id, old_conn_id):
+        """ Update conn_id """
+
         self.db.query(Users)\
             .filter(Users.conn_id == old_conn_id)\
-                 .update({Users.conn_id: conn_id})
+            .update({Users.conn_id: conn_id})
 
     @rpc
     def get_user_info_by_email(self, email):
-        """ return user info by email
-        @param email(str):
-        """
+        """ return user info by email """
+
         return self.db.query(Users)\
             .filter(Users.mail_address == email).first()
 
     @rpc
     def get_user_sadmins(self, conn_id):
+        """ Get user's mail_address """
+
         rows = self.db.query(Users).filter(Users.conn_id == conn_id)\
             .filter(Users.role == "sadmin").all()
         return [row.mail_address for row in rows] if rows else []
 
     @rpc
     def get_licence_version(self, email):
+        """ Get user's license_id """
+
         user_info = self.db.query(Users.conn_id).filter(
             Users.mail_address == email).first()
         return self.db.query(ConnIds.license_id).filter(ConnIds.conn_id == user_info[0]).first()
 
     @rpc
     def get_user_role(self, email):
+        """ Get user's role """
+
         user_info = self.db.query(Users.role).filter(
             Users.mail_address == email).first()
         if user_info[0] == "sadmin":
@@ -100,7 +111,8 @@ class UserService(object):
             return self.db.query(UserRole.role_id).filter(UserRole.email == email).all()
 
     @rpc
-    def get_users(self, conn_id, current_user_role=None, search_key=None,                                                                                                                             sort_key=None, sort_order=None, simit=None, offset=None):
+    def get_users(self, conn_id, current_user_role=None, search_key=None,
+                  sort_key=None, sort_order=None, simit=None, offset=None):
         """ get the users by conn ID
         @param conn_id: str
         @param current_user_role: str
@@ -108,9 +120,10 @@ class UserService(object):
         @return: user list
         @rtype: [], list with Users Object
         """
-        rows = self.db.query(Users).filter(Users.conn_id == conn_id) 
+
+        rows = self.db.query(Users).filter(Users.conn_id == conn_id)
         if current_user_role == "operator":
-            return [] 
+            return []
 
         if current_user_role == "admin":
             rows = rows.filter(Users.role != "sadmin")
@@ -149,13 +162,13 @@ class UserService(object):
     @rpc
     def get_users_count(self, conn_id, current_user_role=None, search_key=None):
         """ get the users by conn ID
-
         @param conn_id: str
         @param current_user_role: str
         @param search_key: str
         @return: user count
         @rtype: int
         """
+
         rows = self.db.query(Users).filter(Users.conn_id == conn_id)
         if current_user_role == "operator":
             return 0
@@ -184,6 +197,7 @@ class UserService(object):
         @param name: the name of the login user
         @return: return the object of Users(current editing).
         """
+
         user = self.db.query(Users).filter(
             Users.mail_address == email).first()
         if username is not None:
@@ -212,11 +226,15 @@ class UserService(object):
 
     @rpc
     def delete_user(self, email):
+        """ Delete user """
+
         self.db.query(Users).filter(Users.mail_address == email).delete()
         self.db.flush()
 
     @rpc
     def reactivate_user(self, user_email):
+        """ Reactivate user """
+
         user = self.db.query(Users).filter(
             Users.mail_address == user_email).first()
         user.state = 'active'
@@ -224,6 +242,8 @@ class UserService(object):
 
     @rpc
     def get_user_role_msg(self, email):
+        """ Get user's role """
+
         user_info = self.db.query(Users).filter(
             Users.mail_address == email).first()
         if user_info:
@@ -233,6 +253,8 @@ class UserService(object):
 
     @rpc
     def save_user_role_msg(self, email, roles):
+        """ Save user's role """
+
         user_info = self.db.query(Users).filter(
             Users.mail_address == email).first()
         if user_info:
@@ -242,6 +264,8 @@ class UserService(object):
     @rpc
     def get_client_user_list_count(self, host_id, conn_id, search_key=None,
                                    role=None, state=None):
+        """ Get user list count """
+
         sql = self.db.query(Users).filter(Users.conn_id == conn_id)
         if role:
             sql = sql.filter(Users.role == role)
@@ -259,6 +283,8 @@ class UserService(object):
         self, host_id, conn_id, search_key=None, role=None,
                              state=None, sort_key=None, sort_order=None,
                              limit=None, offset=None):
+        """ Get users """
+
         sql = self.db.query(Users).filter(Users.conn_id == conn_id)
         if role:
             sql = sql.filter(Users.role == role)
@@ -284,4 +310,6 @@ class UserService(object):
 
     @rpc
     def delete_user_by_conn_id(self, conn_id):
+        """ Delete user """
+
         self.db.query(Users).filter(Users.conn_id == conn_id).delete()

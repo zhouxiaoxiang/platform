@@ -4,7 +4,7 @@ from mongolog.handlers import MongoHandler
 
 
 class _log(object):
-    ''' Abstract log '''
+    """ Log based on mogo """
 
     host = "localhost"
     db = None
@@ -12,26 +12,29 @@ class _log(object):
 
 
     def __init__(self, module="test"):
-        ''' Establish a connection to db. '''
+        """ Establish a connection to db.  """
+
         self.conn = mogo.connect(self.host)
         self.log = self.conn[self.db][self.tb]
         self.module = module
 
 
     def get(self):
-        ''' Return log handler '''
+        """ Return log handler """
+
         return self.log
 
 
 class System_sysLog(_log):
-    ''' Create syslog handler 
-        Return standard log
+    """ 
+    Create syslog handler 
 
-    Example::
-        from system.log import System_sysLog 
-        log = System_sysLog("my module").get()
-        log.info("foo")
-    '''
+    Examples
+    --------
+    >>> from system.log import System_sysLog 
+    >>> log = System_sysLog("my module").get()
+    >>> log.info("foo")
+    """
 
     db = "sysLog"
     tb = "log"
@@ -42,19 +45,21 @@ class System_sysLog(_log):
         self.log.addHandler(MongoHandler.to(self.tb, self.db, self.host))
 
     def get(self):
-        ''' Return standard logging handler '''
+        """ Return standard logging handler """
+
         return self.log
 
 
 class System_sysEventLog(_log):
-    ''' Create event log handler 
-        Return mongodb handler
+    """ 
+    Create event log handler 
 
-    Example::
-        from system.log import System_sysEventLog
-        log = System_sysEventLog("my module").get()
-        log.info("foo")
-    '''
+    Examples
+    --------
+    >>> from system.log import System_sysEventLog
+    >>> log = System_sysEventLog("my module").get()
+    >>> log.info("foo")
+    """
 
     db = "eventLog"
     tb = "sys"
@@ -64,14 +69,14 @@ class System_sysEventLog(_log):
 
 
 class System_userEventLog(_log):
-    ''' Create user event log handler 
-        Return mongodb handler
+    """ Create user event log handler 
 
-    Example::
-        from system.log import System_userEventLog
-        log = System_userEventLog("my module").get()
-        log.info("foo")
-    '''
+    Examples
+    --------
+    >>> from system.log import System_userEventLog
+    >>> log = System_userEventLog("my module").get()
+    >>> log.info("foo")
+    """
 
     db = "eventLog"
     tb = "user"
@@ -81,14 +86,14 @@ class System_userEventLog(_log):
 
 
 class System_stockEventLog(_log):
-    ''' Create stock event log handler 
-        Return mongodb handler
+    """ Create stock event log handler 
 
-    Example::
-        from system.log import System_stockEventLog
-        log = System_stockEventLog("my module").get()
-        log.info("foo")
-    '''
+    Examples
+    --------
+    >>> from system.log import System_stockEventLog
+    >>> log = System_stockEventLog("my module").get()
+    >>> log.info("foo")
+    """
 
     db = "eventLog"
     tb = "stock"
@@ -98,14 +103,14 @@ class System_stockEventLog(_log):
 
 
 class System_nopickedEventLog(_log):
-    ''' Create nopicked event log handler 
-        Return mongodb handler
+    """ Create nopicked event log handler 
 
-    Example::
-        from system.log import System_nopickedEventLog
-        log = System_nopickedEventLog("my module").get()
-        log.info("foo")
-    '''
+    Examples
+    --------
+    >>> from system.log import System_nopickedEventLog
+    >>> log = System_nopickedEventLog("my module").get()
+    >>> log.info("foo")
+    """
 
     db = "eventLog"
     tb = "nopicked"

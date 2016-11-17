@@ -1,25 +1,35 @@
-import os
 import ConfigParser
+from os import path, pardir
 
 
 class System_config(object):
-    ''' Get system config handler 
-    Example::
-    --------
-    from system import System_config
-    config = System_config().get
-    config.get("", "")
-    '''
+
+    """
+    Supply system configuration
+
+    Example
+    -------
+    Get system configuration
+
+    >>> from system.conf import System_config
+    >>> config = System_config().get()
+    >>> database = config.get("system", "database")
+    """
+
+    CONFIG = "platform.ini"
 
     def __init__(self):
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        config_path = os.path.abspath(os.path.join(current_dir,
-                                                   os.pardir,
-                                                   "platform.ini"))
+
+        self.config = None
+
+    def get(self):
+        """ Return ConfigParser result """
+
+        current_dir = path.dirname(path.abspath(__file__))
+        config_path = path.abspath(path.join(current_dir,
+                                   pardir, self.CONFIG))
         self.config = ConfigParser.ConfigParser()
         with open(config_path) as f:
             self.config.readfp(f)
 
-    def get(self):
-        ''' Get config handler '''
         return self.config
