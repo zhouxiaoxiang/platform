@@ -22,6 +22,9 @@ def newSession():
 
 
 def test_UserService(newSession):
-    service = UserService(newSession)
+    service = UserService()
     service.add_user(conn_id='9', user_name='', email="x@y", role='')
-    assert newSession.query()[-1].mail_address == 'x@y'
+
+    user = service.db.query(Users).filter_by(mail_address = "x@y").first()
+    assert user is not None
+    assert user.mail_address == 'x@y'

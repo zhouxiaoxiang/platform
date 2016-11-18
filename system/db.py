@@ -18,25 +18,34 @@ class System_db(object):
     Create database and datasets
 
     >>> from system.db import *
-    >>> system_db = System_db()
-    >>> db = system_db.create_db()
-    >>> rs = system_db.create_rs()
+    >>> _db = System_db()
+    >>> db = _db.get_db()
+    >>> rs = _db.get_rs()
     """
 
     def __init__(self):
-        config = System_config().get()
+        config = System_config()
         self.datasets = config.get("system", "datasets")
         self.database = config.get("system", "database")
-        self.engine = None
-
-    def create_db(self):
         self.engine = create_engine(self.database)
+
+    def get_db(self):
+        """ 
+        Get a session 
+        For others, it's db.
+
+        """
+
         Base.metadata.create_all(self.engine)
         return sessionmaker(self.engine)()
 
     def drop_db(self):
+        """  Drop all db.  """
+
         Base.metadata.drop_all(self.engine)
 
-    def create_rs(self):
+    def get_rs(self):
+        """ Support redis """
+
         return StrictRedis.from_url(self.datasets)
 

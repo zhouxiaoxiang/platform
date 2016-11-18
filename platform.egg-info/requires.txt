@@ -1,5 +1,4 @@
 ConfigParser
-mogo
 nameko
 pymongo
 sqlalchemy
@@ -12,3 +11,4 @@ sphinx
 pytest
 tox
 redis
+mogo

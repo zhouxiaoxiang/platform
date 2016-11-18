@@ -7,29 +7,26 @@ class System_config(object):
     """
     Supply system configuration
 
-    Example
-    -------
+    Examples
+    --------
     Get system configuration
 
     >>> from system.conf import System_config
-    >>> config = System_config().get()
+    >>> config = System_config()
     >>> database = config.get("system", "database")
     """
 
-    CONFIG = "platform.ini"
+    FILE = "platform.ini"
+    _obj = ""
 
-    def __init__(self):
+    def __new__(cls, *args, **kwargs):
+        """ Return ConfigParser """
 
-        self.config = None
+        if not cls._obj:
+            curdir = path.dirname(path.abspath(__file__))
+            config = path.join(curdir, pardir, cls.FILE)
+            cls._obj = ConfigParser.ConfigParser()
+            with open(path.abspath(config)) as f:
+                cls._obj.readfp(f)
 
-    def get(self):
-        """ Return ConfigParser result """
-
-        current_dir = path.dirname(path.abspath(__file__))
-        config_path = path.abspath(path.join(current_dir,
-                                   pardir, self.CONFIG))
-        self.config = ConfigParser.ConfigParser()
-        with open(config_path) as f:
-            self.config.readfp(f)
-
-        return self.config
+        return cls._obj

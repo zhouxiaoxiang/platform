@@ -6,6 +6,11 @@ class App(object):
     """
     Supply database and datasets.
 
+    Returns
+    -------
+    - db : sqlalchemy.orm.session.Session
+    - rs : redis.client.StrictRedis
+
     Examples
     --------
     Create a new application.
@@ -14,11 +19,11 @@ class App(object):
     >>> class UserService(App):
     >>>     @rpc
     >>>     def test(self):
-    >>>         print(self.db)
-    >>>         print(self.rs)
+    >>>         self.db.query(Users).all()
+    >>>         self.rs.set("foo", 1)
     """
 
-    system_db = System_db()
-    db = system_db.create_db()
-    rs = system_db.create_rs()
+    _db = System_db()
+    db = _db.get_db()
+    rs = _db.get_rs()
 
