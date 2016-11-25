@@ -1,4 +1,4 @@
-ConfigParser
+nameko-sqlalchemy
 nameko
 pymongo
 sqlalchemy
@@ -12,3 +12,8 @@ pytest
 tox
 redis
 mogo
+PyYAML
+fudge
+mockredispy
+mock
+mocksqlalchemy

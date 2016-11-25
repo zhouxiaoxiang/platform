@@ -1,8 +1,9 @@
 from nameko.rpc import rpc, RpcProxy
 from dao import *
 
-        
+
 class App(object):
+
     """
     Supply database and datasets.
 
@@ -15,15 +16,14 @@ class App(object):
     --------
     Create a new application.
 
-    >>> from system.app import *
-    >>> class UserService(App):
-    >>>     @rpc
-    >>>     def test(self):
-    >>>         self.db.query(Users).all()
-    >>>         self.rs.set("foo", 1)
+    >>> from system.app import App
+    >>> app = App()
     """
 
-    _db = System_db()
-    db = _db.get_db()
-    rs = _db.get_rs()
+    db = ""
+    rs = ""
 
+    def init(self):
+        data = Db()
+        self.db = data.get_db()
+        self.rs = data.get_rs()

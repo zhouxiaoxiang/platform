@@ -4,7 +4,6 @@ from datetime import date, datetime, timedelta
 
 
 class UserService(App):
-
     """
     Support all user operations.
 
@@ -20,6 +19,9 @@ class UserService(App):
     """
 
     name = "user_service"
+
+    def __init__(self):
+        super(UserService, self).init()
 
     @rpc
     def add_user(self, conn_id, user_name, email, role, client_name=None, 

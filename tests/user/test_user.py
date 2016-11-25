@@ -1,30 +1,19 @@
-import pytest
 from services.user.user import *
+from system.test import *
 
 
-class DB:
+def aaa(*args):
+    print 
+    print "<<<<<<<<<<<<<", args
+    print 
+    return(args)
 
-    def __init__(self):
-        self.objs = []
+def test_service(service):
+    
+    aa = UserService()
+    #aa.db.add.return_value = "XXXXXXXXXXXXXXXXXXXxx"
+    aa.db.add = MagicMock(side_effect=aaa)
+    #aa.db.commit = MagicMock(side_effect=aaa)
+    aa.add_user(conn_id='9', user_name='', email="x@y", role='')
 
-    def add(self, obj):
-        self.objs.append(obj)
-
-    def commit(self):
-        pass
-
-    def query(self):
-        return self.objs
-
-@pytest.fixture(scope="module")
-def newSession():
-    return DB()
-
-
-def test_UserService(newSession):
-    service = UserService()
-    service.add_user(conn_id='9', user_name='', email="x@y", role='')
-
-    user = service.db.query(Users).filter_by(mail_address = "x@y").first()
-    assert user is not None
-    assert user.mail_address == 'x@y'
+    print(">>>>>>>>>>>", aa.db.add.return_value)

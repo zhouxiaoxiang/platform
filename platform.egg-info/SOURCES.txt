@@ -19,6 +19,7 @@ system/app.py
 system/conf.py
 system/db.py
 system/log.py
+system/test.py
 tests/__init__.py
 tests/activity/__init__.py
 tests/machine/__init__.py

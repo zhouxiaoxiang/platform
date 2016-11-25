@@ -1,8 +1,8 @@
-import ConfigParser
+import yaml
 from os import path, pardir
 
 
-class System_config(object):
+class Config(object):
 
     """
     Supply system configuration
@@ -11,22 +11,21 @@ class System_config(object):
     --------
     Get system configuration
 
-    >>> from system.conf import System_config
-    >>> config = System_config()
-    >>> database = config.get("system", "database")
+    >>> from system.conf import Config
+    >>> config = Config()
+    >>> database = config["database"]
     """
 
-    FILE = "platform.ini"
-    _obj = ""
+    FILE = "platform.cfg"
+    __obj = ""
 
-    def __new__(cls, *args, **kwargs):
+    def __new__(self, *args, **kwargs):
         """ Return ConfigParser """
-
-        if not cls._obj:
+        
+        if not self.__obj:
             curdir = path.dirname(path.abspath(__file__))
-            config = path.join(curdir, pardir, cls.FILE)
-            cls._obj = ConfigParser.ConfigParser()
+            config = path.join(curdir, pardir, self.FILE)
             with open(path.abspath(config)) as f:
-                cls._obj.readfp(f)
+                self.__obj = yaml.load(f)
 
-        return cls._obj
+        return self.__obj

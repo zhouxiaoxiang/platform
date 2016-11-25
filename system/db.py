@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, create_engine, types
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from system.conf import System_config
+from sqlalchemy.orm import scoped_session, sessionmaker
+from system.conf import Config
 from redis import StrictRedis
 
 Base = declarative_base()
@@ -9,35 +9,33 @@ BaseRegion = declarative_base()
 BaseFiling = declarative_base()
 
 
-class System_db(object):
+class Db(object):
+
     """
     Create system db mechanics
-    
+
     Examples
     --------
     Create database and datasets
 
     >>> from system.db import *
-    >>> _db = System_db()
+    >>> _db = Db()
     >>> db = _db.get_db()
     >>> rs = _db.get_rs()
     """
 
     def __init__(self):
-        config = System_config()
-        self.datasets = config.get("system", "datasets")
-        self.database = config.get("system", "database")
-        self.engine = create_engine(self.database)
+        self.config = Config()
 
     def get_db(self):
-        """ 
-        Get a session 
+        """
+        Get a session
         For others, it's db.
-
         """
 
+        self.engine = create_engine(self.config["database"])
         Base.metadata.create_all(self.engine)
-        return sessionmaker(self.engine)()
+        return scoped_session(sessionmaker(self.engine))
 
     def drop_db(self):
         """  Drop all db.  """
@@ -47,5 +45,4 @@ class System_db(object):
     def get_rs(self):
         """ Support redis """
 
-        return StrictRedis.from_url(self.datasets)
-
+        return StrictRedis.from_url(self.config["datasets"])

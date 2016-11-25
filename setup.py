@@ -47,7 +47,6 @@ def platform_extend(argv):
 
     def _extend(func):
         def __extend(**attrs):
-
             from setuptools import find_packages
 
             with open('README.txt') as f:
@@ -68,5 +67,5 @@ def platform_extend(argv):
         return __extend
     return _extend
 
-
-platform_extend(cmd)(setup)(**version)
+setup=platform_extend(cmd)(setup)
+setup(**version)
