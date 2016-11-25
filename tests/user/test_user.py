@@ -2,18 +2,12 @@ from services.user.user import *
 from system.test import *
 
 
-def aaa(*args):
-    print 
-    print "<<<<<<<<<<<<<", args
-    print 
-    return(args)
-
-def test_service(service):
-    
-    aa = UserService()
-    #aa.db.add.return_value = "XXXXXXXXXXXXXXXXXXXxx"
-    aa.db.add = MagicMock(side_effect=aaa)
-    #aa.db.commit = MagicMock(side_effect=aaa)
-    aa.add_user(conn_id='9', user_name='', email="x@y", role='')
-
-    print(">>>>>>>>>>>", aa.db.add.return_value)
+def test_service(app):
+    service = app.create(UserService)
+    app.get(service.db.add)
+    service.add_user(conn_id='a', user_name='b', email="c", role='d')
+    user = app.get_result
+    assert user.conn_id == 'a'
+    assert user.user_name == 'b'
+    assert user.mail_address == 'c'
+    assert user.role == 'd'

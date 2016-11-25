@@ -3,9 +3,6 @@ from dao import *
 from mockredis import *
 from mock import *
 from pytest import *
-from mocksqlalchemy import scoped_sessionmaker_mock
-import functools
-
 
 class Mock_app(object):
     """
@@ -30,12 +27,26 @@ class Mock_app(object):
     def init(self):
         return lambda self: None
 
+    def create(self, name):
+        self.service = name()
+        return self.service
 
-@fixture(autouse=True)
-def service(monkeypatch):
+    def get(self, attr):
+        attr.side_effect = self.get_service
+
+    def get_service(self, args):
+        self.get_result = args
+        
+    def set(self, attr, value):
+        attr.return_value = value
+
+@fixture
+def app(monkeypatch):
     """
     Create platform App for test
     """
 
     mock_app = Mock_app()
     mock_app.start(monkeypatch)
+
+    return mock_app
