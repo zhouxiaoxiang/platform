@@ -1,23 +1,30 @@
 import logging
 import mogo
 from mongolog.handlers import MongoHandler
+from system.conf import Config
+from abc import *
 
 
 class _log(object):
     """ Log based on mogo """
+    
+    def __init__(self):
+        raise "Abstractmethod"
 
-    host = "localhost"
-    db = None
-    tb = None
-
-
-    def __init__(self, module="test"):
+    def connect(self):
         """ Establish a connection to db.  """
 
         self.conn = mogo.connect(self.host)
         self.log = self.conn[self.db][self.tb]
-        self.module = module
 
+    def config(self, logType=""):
+        """ Get host/db/tb """
+
+        conf = Config()['log'][logType]
+        self.host = conf['host']
+        self.db = conf['db']
+        self.tb = conf['tb']
+        self.connect()
 
     def get(self):
         """ Return log handler """
@@ -41,11 +48,12 @@ class System_sysLog(_log):
     >>> log.log(logging.DEBUG, "foo")
     """
 
-    db = "sysLog"
-    tb = "log"
-
     def __init__(self, module="test"):
-        self.log = logging.getLogger(module)
+        self.module = module
+        self.config("sysLog")
+
+    def connect(self):
+        self.log = logging.getLogger(self.module)
         self.log.setLevel(logging.DEBUG)
         self.log.addHandler(MongoHandler.to(self.tb, self.db, self.host))
 
@@ -66,17 +74,14 @@ class System_sysEventLog(_log):
     Examples
     --------
     >>> from system.log import System_sysEventLog
-    >>> log = System_sysEventLog("my module").get()
+    >>> log = System_sysEventLog().get()
     >>> result = log.insert_one({"count":1})
     >>> result.acknowledged
     True
     """
 
-    db = "eventLog"
-    tb = "sys"
-
-    def __init__(self,  module="test"):
-        super(System_sysEventLog, self).__init__()
+    def __init__(self, logType="sysEventLog"):
+        self.config(logType)
 
 
 class System_userEventLog(_log):
@@ -85,17 +90,14 @@ class System_userEventLog(_log):
     Examples
     --------
     >>> from system.log import System_userEventLog
-    >>> log = System_userEventLog("my module").get()
+    >>> log = System_userEventLog().get()
     >>> result = log.insert_one({"count":1})
     >>> result.acknowledged
     True
     """
 
-    db = "eventLog"
-    tb = "user"
-
-    def __init__(self,  module="test"):
-        super(System_userEventLog, self).__init__()
+    def __init__(self, logType="userEventLog"):
+        self.config(logType)
 
 
 class System_stockEventLog(_log):
@@ -104,17 +106,14 @@ class System_stockEventLog(_log):
     Examples
     --------
     >>> from system.log import System_stockEventLog
-    >>> log = System_stockEventLog("my module").get()
+    >>> log = System_stockEventLog().get()
     >>> result = log.insert_one({"count":1})
     >>> result.acknowledged
     True
     """
 
-    db = "eventLog"
-    tb = "stock"
-
-    def __init__(self,  module="test"):
-        super(System_stockEventLog, self).__init__()
+    def __init__(self, logType="stockEventLog"):
+        self.config(logType)
 
 
 class System_nopickedEventLog(_log):
@@ -123,15 +122,11 @@ class System_nopickedEventLog(_log):
     Examples
     --------
     >>> from system.log import System_nopickedEventLog
-    >>> log = System_nopickedEventLog("my module").get()
+    >>> log = System_nopickedEventLog().get()
     >>> result = log.insert_one({"count":1})
     >>> result.acknowledged
     True
     """
 
-    db = "eventLog"
-    tb = "nopicked"
-
-    def __init__(self,  module="test"):
-        super(System_nopickedEventLog, self).__init__()
-
+    def __init__(self, logType="nopickedEventLog"):
+        self.config(logType)
