@@ -33,3 +33,12 @@ tests/system/__pycache__/
 tests/user/__pycache__/
 extends.pyc
 .cache
+dao/__init__.pyc
+dao/db.pyc
+services/__init__.pyc
+services/user/__init__.pyc
+system/test.pyc
+tests/__init__.pyc
+tests/system/__init__.pyc
+tests/user/__init__.pyc
+

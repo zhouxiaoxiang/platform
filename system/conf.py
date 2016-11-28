@@ -14,6 +14,8 @@ class Config(object):
     >>> from system.conf import Config
     >>> config = Config()
     >>> database = config["database"]
+    >>> "mysql" in database
+    True
     """
 
     FILE = "platform.cfg"
@@ -29,3 +31,7 @@ class Config(object):
                 self.__obj = yaml.load(f)
 
         return self.__obj
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
