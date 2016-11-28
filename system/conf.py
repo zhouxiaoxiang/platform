@@ -31,7 +31,3 @@ class Config(object):
                 self.__obj = yaml.load(f)
 
         return self.__obj
-
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()

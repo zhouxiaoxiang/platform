@@ -21,7 +21,11 @@ class Db(object):
     >>> from system.db import *
     >>> _db = Db()
     >>> db = _db.get_db()
+    >>> isinstance(db, scoped_session)
+    True
     >>> rs = _db.get_rs()
+    >>> isinstance(rs, StrictRedis)
+    True
     """
 
     def __init__(self):

@@ -31,13 +31,14 @@ class System_sysLog(_log):
 
     Examples
     --------
+    >>> import logging
     >>> from system.log import System_sysLog 
     >>> log = System_sysLog("my module").get()
     >>> log.debug("foo")
     >>> log.error("foo")
     >>> log.fatal("foo")
     >>> log.info("foo")
-    >>> log.log("foo")
+    >>> log.log(logging.DEBUG, "foo")
     """
 
     db = "sysLog"
@@ -66,8 +67,9 @@ class System_sysEventLog(_log):
     --------
     >>> from system.log import System_sysEventLog
     >>> log = System_sysEventLog("my module").get()
-    >>> log.insert_one({"count":1})
-    >>> log.find_one()
+    >>> result = log.insert_one({"count":1})
+    >>> result.acknowledged
+    True
     """
 
     db = "eventLog"
@@ -84,8 +86,9 @@ class System_userEventLog(_log):
     --------
     >>> from system.log import System_userEventLog
     >>> log = System_userEventLog("my module").get()
-    >>> log.insert_one({"count":1})
-    >>> log.find_one()
+    >>> result = log.insert_one({"count":1})
+    >>> result.acknowledged
+    True
     """
 
     db = "eventLog"
@@ -102,8 +105,9 @@ class System_stockEventLog(_log):
     --------
     >>> from system.log import System_stockEventLog
     >>> log = System_stockEventLog("my module").get()
-    >>> log.insert_one({"count":1})
-    >>> log.find_one()
+    >>> result = log.insert_one({"count":1})
+    >>> result.acknowledged
+    True
     """
 
     db = "eventLog"
@@ -120,8 +124,9 @@ class System_nopickedEventLog(_log):
     --------
     >>> from system.log import System_nopickedEventLog
     >>> log = System_nopickedEventLog("my module").get()
-    >>> log.insert_one({"count":1})
-    >>> log.find_one()
+    >>> result = log.insert_one({"count":1})
+    >>> result.acknowledged
+    True
     """
 
     db = "eventLog"

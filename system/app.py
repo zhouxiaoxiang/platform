@@ -18,6 +18,10 @@ class App(object):
 
     >>> from system.app import App
     >>> app = App()
+    >>> app.db
+    ''
+    >>> app.rs
+    ''
     """
 
     db = ""

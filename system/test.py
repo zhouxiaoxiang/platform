@@ -7,6 +7,15 @@ from pytest import *
 class Mock_app(object):
     """
     Platform App for test
+
+    Examples
+    --------
+    >>> from system.test import *
+    >>> app = Mock_app()
+    >>> app.base
+    'system.app.App.'
+    >>> app.base_methods
+    ['rs', 'db', 'init']
     """
 
     base = "system.app.App."
