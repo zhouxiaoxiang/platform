@@ -30,7 +30,7 @@ from setuptools import setup
 
 
 version = {"name": 'platform',
-           "version": '1.0',
+           "version": '1.1',
            "description": 'Cereson Platform.',
            }
 

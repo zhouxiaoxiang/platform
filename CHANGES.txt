@@ -54,4 +54,7 @@
 - It's a tag
 -- Now it's time to develop all kinds of services.
 
+1.1
 
+- Add log configuration
+-- Remove code dependency.
