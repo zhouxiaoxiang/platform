@@ -58,3 +58,13 @@
 
 - Add log configuration
 -- Remove code dependency.
+
+1.2
+
+- Add fabric
+-- Take fabric to manage tasks
+
+1.3
+
+- Extract all tasks arguments
+-- Control all tasks from configuration files.

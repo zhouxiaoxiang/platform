@@ -3,23 +3,26 @@
 
 Apply microservices and TDD makes enterprises more productive.
 
-- Show all callable commands.
-
-./setup.py
-
 - Install packages.
 
 ./setup.py develop
 
+- Show all callable commands.
+
+fab -l
+
 - Run some services.
 
-./setup.py run user
+fab run:user
 
 - Run unit tests.
 
-./setup.py test
+fab test
 
 - Run system test.
 
-./setup.py sys
+fab sys
 
+- Create platform documents.
+
+fab doc

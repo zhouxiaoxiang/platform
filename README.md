@@ -7,6 +7,7 @@
 | ---------  | ----------------------  |
 | Eric Zhou  | xiaoxiang.cn@gmail.com  |
 
+> Newest features in README.txt.
 > Appreciate your suggestion.
 
 ## Getting Started
