@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: platform
-Version: 1.1
+Version: 1.3
 Summary: Cereson Platform.
 Home-page: UNKNOWN
 Author: UNKNOWN
@@ -11,26 +11,29 @@ Description: # PLATFORM README
         
         Apply microservices and TDD makes enterprises more productive.
         
-        - Show all callable commands.
-        
-        ./setup.py
-        
         - Install packages.
         
         ./setup.py develop
         
+        - Show all callable commands.
+        
+        fab -l
+        
         - Run some services.
         
-        ./setup.py run user
+        fab run:user
         
         - Run unit tests.
         
-        ./setup.py test
+        fab test
         
         - Run system test.
         
-        ./setup.py sys
+        fab sys
         
+        - Create platform documents.
+        
+        fab doc
         
         
         0.1
@@ -93,5 +96,15 @@ Description: # PLATFORM README
         
         - Add log configuration
         -- Remove code dependency.
+        
+        1.2
+        
+        - Add fabric
+        -- Take fabric to manage tasks
+        
+        1.3
+        
+        - Extract all tasks arguments
+        -- Control all tasks from configuration files.
         
 Platform: UNKNOWN

@@ -20,6 +20,7 @@ import os
 import sys
 from fabric.api import *
 from system.conf import Config
+from multiprocessing import Process
 
 
 def _conf(task=None):
@@ -35,7 +36,8 @@ def _run(service):
     for path, _, fs in os.walk(loc):
         if (service + ".py") in fs:
             with lcd(path):
-                local("%s %s %s" % (cmd, service, prefix + arg))
+                local("%s %s %s" % (cmd, service,
+                                    prefix + arg))
             break
 
 
@@ -75,7 +77,6 @@ def run(*args):
     ''' Run some services, eg. user '''
 
     for service in args:
-        from multiprocessing import Process
         Process(target=_run, args=(service, )).start()
 
 
