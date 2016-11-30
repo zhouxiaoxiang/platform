@@ -18,15 +18,20 @@ class Config(object):
     True
     """
 
-    FILE = "platform.cfg"
     __obj = ""
 
     def __new__(self, *args, **kwargs):
         """ Return ConfigParser """
+
+
+        if kwargs:
+            config_file = kwargs["config"]
+        else:
+            config_file = "services.cfg"
         
         if not self.__obj:
             curdir = path.dirname(path.abspath(__file__))
-            config = path.join(curdir, pardir, self.FILE)
+            config = path.join(curdir, pardir, config_file)
             with open(path.abspath(config)) as f:
                 self.__obj = yaml.load(f)
 

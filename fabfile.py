@@ -19,21 +19,31 @@
 import os
 import sys
 from fabric.api import *
+from system.conf import Config
+
+
+def _conf(task=None):
+    if task:
+        config = Config(config="platform.cfg")
+        return config[task]
 
 
 def _run(service):
-    loc, cmd, arg = "services", "nameko run", "--broker amqp://guest:guest@localhost"
+    loc, cmd, arg = _conf('run')
+    prefix = "--broker amqp://"
+
     for path, _, fs in os.walk(loc):
         if (service + ".py") in fs:
             with lcd(path):
-                local("%s %s %s" % (cmd, service, arg))
+                local("%s %s %s" % (cmd, service, prefix + arg))
             break
 
 
 def _test(test=None):
-    loc, cmd, arg = "tests", "py.test", "test_%s.py"
+    loc, cmd, arg = _conf('test')
+
     if test is None:
-        local('%s' % (cmd))
+        local(cmd)
         return
 
     for path, _, fs in os.walk(loc):
@@ -43,21 +53,24 @@ def _test(test=None):
             break
 
 
+@task
 def doc():
     ''' Create project documents '''
 
-    loc, cmd, arg = "services", "sphinx-apidoc", "docs"
+    loc, cmd, arg = _conf('doc')
     local("%s -f -o %s services" % (cmd, arg))
     local("make html -C %s" % (arg))
 
 
+@task
 def sys():
     ''' Run tests with full new python environment '''
 
-    cmd = "tox"
+    loc, cmd, arg = _conf('sys')
     local(cmd)
 
 
+@task
 def run(*args):
     ''' Run some services, eg. user '''
 
@@ -66,6 +79,7 @@ def run(*args):
         Process(target=_run, args=(service, )).start()
 
 
+@task
 def test(*args):
     ''' Run unit tests '''
 
