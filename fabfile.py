@@ -18,9 +18,13 @@
 
 import os
 import sys
+import logging
 from fabric.api import *
 from system.conf import Config
 from multiprocessing import Process
+
+
+logging.basicConfig(level=logging.WARN)
 
 
 def _conf(task=None):
