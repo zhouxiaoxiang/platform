@@ -31,3 +31,8 @@ class App(object):
         data = Db()
         self.db = data.get_db()
         self.rs = data.get_rs()
+
+    def obj2dict(self, obj):
+        return dict((key, obj.__dict__[key])\
+               for key in obj.__dict__ \
+               if not key.startswith("_"))

@@ -17,4 +17,3 @@ fudge
 mockredispy
 mock
 mocksqlalchemy
-doctest

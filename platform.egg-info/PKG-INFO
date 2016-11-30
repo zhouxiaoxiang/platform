@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: platform
-Version: 1.0
+Version: 1.1
 Summary: Cereson Platform.
 Home-page: UNKNOWN
 Author: UNKNOWN
@@ -89,6 +89,9 @@ Description: # PLATFORM README
         - It's a tag
         -- Now it's time to develop all kinds of services.
         
+        1.1
         
+        - Add log configuration
+        -- Remove code dependency.
         
 Platform: UNKNOWN

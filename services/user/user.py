@@ -4,6 +4,7 @@ from datetime import date, datetime, timedelta
 
 
 class UserService(App):
+
     """
     Support all user operations.
 
@@ -15,7 +16,8 @@ class UserService(App):
     >>> from nameko.standalone.rpc import ClusterRpcProxy
     >>> CONFIG = {"AMQP_URI":"amqp://guest:guest@localhost"}
     >>> with ClusterRpcProxy(CONFIG) as services:
-    >>>     result = services.user_service.add_user(conn_id='10', user_name='', email="x@y", role='')
+    >>>     result = services.user_service.add_user(conn_id='10', 
+    >>>              user_name='', mail_address="x@y", role='')
     """
 
     name = "user_service"
@@ -24,20 +26,21 @@ class UserService(App):
         super(UserService, self).init()
 
     @rpc
-    def add_user(self, conn_id, user_name, email, role, client_name=None, 
-                 cell_phone='', company='', all_kiosks=0, alert_same_kiosk=0, 
+    def add_user(self, conn_id, user_name, mail_address, 
+                 role, name=None, cell_phone='', company='', 
+                 all_kiosks=0, alert_same_kiosk=0, 
                  alert_all_kiosk=0):
         """ Add a user """
 
-        current_date = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+        current_date = datetime.utcnow()
         current_time = int(time.time())
 
         user = Users()
         user.conn_id = conn_id
-        user.user_name = user_name or email
+        user.user_name = user_name or mail_address
         user.role = role
-        user.name = client_name
-        user.mail_address = email
+        user.name = name
+        user.mail_address = mail_address
         user.state = "active"
         user.cell_phone = cell_phone
         user.company = company
@@ -53,75 +56,27 @@ class UserService(App):
         self.db.commit()
 
     @rpc
-    def get_user_email(self, conn_ids, role=None):
-        """ Get user's email """
-
-        rows = self.db.query(Users).filter(Users.role == role)
-        if conn_ids is not None:
-            ore = None
-            for m_ in conn_ids:
-                ore = or_(ore, Users.conn_id == m_)
-            rows = rows.filter(ore)
-        return rows
-
-    @rpc
-    def get_user_info(self, email):
-        """ Get user by whose email """
-
-        return self.db.query(Users).filter(Users.mail_address == email).first()
-
-    @rpc
     def update_users_conn_id(self, conn_id, old_conn_id):
         """ Update conn_id """
 
-        self.db.query(Users)\
-            .filter(Users.conn_id == old_conn_id)\
-            .update({Users.conn_id: conn_id})
+        self.db.query(Users).\
+                filter(Users.conn_id == old_conn_id).\
+                update({Users.conn_id: conn_id})
 
     @rpc
     def get_user_info_by_email(self, email):
         """ return user info by email """
 
-        return self.db.query(Users)\
-            .filter(Users.mail_address == email).first()
+        user = self.db.query(Users).\
+                filter(Users.mail_address == email).\
+                first()
+        return self.obj2dict(user)
 
     @rpc
-    def get_user_sadmins(self, conn_id):
-        """ Get user's mail_address """
-
-        rows = self.db.query(Users).filter(Users.conn_id == conn_id)\
-            .filter(Users.role == "sadmin").all()
-        return [row.mail_address for row in rows] if rows else []
-
-    @rpc
-    def get_licence_version(self, email):
-        """ Get user's license_id """
-
-        user_info = self.db.query(Users.conn_id).filter(
-            Users.mail_address == email).first()
-        return self.db.query(ConnIds.license_id).filter(ConnIds.conn_id == user_info[0]).first()
-
-    @rpc
-    def get_user_role(self, email):
-        """ Get user's role """
-
-        user_info = self.db.query(Users.role).filter(
-            Users.mail_address == email).first()
-        if user_info[0] == "sadmin":
-            return "sadmin"
-        else:
-            return self.db.query(UserRole.role_id).filter(UserRole.email == email).all()
-
-    @rpc
-    def get_users(self, conn_id, current_user_role=None, search_key=None,
-                  sort_key=None, sort_order=None, simit=None, offset=None):
-        """ get the users by conn ID
-        @param conn_id: str
-        @param current_user_role: str
-        @param search_key: str
-        @return: user list
-        @rtype: [], list with Users Object
-        """
+    def get_users(self, conn_id, current_user_role=None, 
+            search_key=None, sort_key=None, sort_order=None, 
+            limit=None, offset=None):
+        """ get the users by conn ID """
 
         rows = self.db.query(Users).filter(Users.conn_id == conn_id)
         if current_user_role == "operator":
@@ -133,8 +88,7 @@ class UserService(App):
         if search_key:
             key = "%%%s%%" % search_key
             rows = rows.filter(or_(Users.user_name.like(key),
-                                   Users.name.like(key),
-                                   Users.mail_address.like(key)))
+                Users.name.like(key), Users.mail_address.like(key)))
 
         if sort_key:
             sort = getattr(Users, sort_key, None)
@@ -145,11 +99,12 @@ class UserService(App):
                     rows = rows.order_by(sort)
         if limit:
             rows = rows.limit(limit)
+
         if offset:
             rows = rows.offset(offset)
+
         result = rows.all()
 
-        # sort by "role"
         if sort_key:
             if sort_key == "role":
                 if str(sort_order).lower() == "desc":
@@ -159,17 +114,11 @@ class UserService(App):
                 else:
                     result.sort(
                         lambda x, y: cmp(y.role.find("admin"), x.role.find("admin")))
-        return result
+        return [ self.obj2dict(user) for user in result ] if result else []
 
     @rpc
     def get_users_count(self, conn_id, current_user_role=None, search_key=None):
-        """ get the users by conn ID
-        @param conn_id: str
-        @param current_user_role: str
-        @param search_key: str
-        @return: user count
-        @rtype: int
-        """
+        """ get the users by conn ID """
 
         rows = self.db.query(Users).filter(Users.conn_id == conn_id)
         if current_user_role == "operator":
@@ -190,15 +139,7 @@ class UserService(App):
                       notes=None, state=None, name=None,
                       cell_phone=None, company=None, all_kiosks=None,
                       same_assign=None, alert_all=None):
-        """ edit the userinfo
-
-        @param username: the username of the login user
-        @param role: the role of the login user
-        @param notes: the notes of the login user
-        @param state: the state of the login user
-        @param name: the name of the login user
-        @return: return the object of Users(current editing).
-        """
+        """ edit the userinfo """
 
         user = self.db.query(Users).filter(
             Users.mail_address == email).first()
@@ -264,7 +205,7 @@ class UserService(App):
         self.db.flush()
 
     @rpc
-    def get_client_user_list_count(self, host_id, conn_id, search_key=None,
+    def get_client_user_list_count(self, conn_id, search_key=None,
                                    role=None, state=None):
         """ Get user list count """
 
@@ -279,36 +220,6 @@ class UserService(App):
                                  Users.name.like(key),
                                  Users.notes.like(key)))
         return sql.count()
-
-    @rpc
-    def get_client_user_list(
-        self, host_id, conn_id, search_key=None, role=None,
-                             state=None, sort_key=None, sort_order=None,
-                             limit=None, offset=None):
-        """ Get users """
-
-        sql = self.db.query(Users).filter(Users.conn_id == conn_id)
-        if role:
-            sql = sql.filter(Users.role == role)
-        if state:
-            sql = sql.filter(Users.state == state)
-        if search_key:
-            key = "%%%s%%" % search_key
-            sql = sql.filter(or_(Users.user_name.like(key),
-                                 Users.name.like(key),
-                                 Users.notes.like(key)))
-        if sort_key:
-            sort = getattr(Users, sort_key, None)
-            if sort is not None:
-                if str(sort_order).lower() == "desc":
-                    sql = sql.order_by(sort.desc())
-                else:
-                    sql = sql.order_by(sort)
-        if limit:
-            sql = sql.limit(limit)
-        if offset:
-            sql = sql.offset(offset)
-        return sql.all()
 
     @rpc
     def delete_user_by_conn_id(self, conn_id):

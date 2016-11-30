@@ -31,7 +31,9 @@ class Mock_app(object):
         return mock_redis_client()
 
     def db(self):
-        return MagicMock()
+        engine = create_engine('sqlite:///:memory:')
+        Base.metadata.create_all(engine)
+        return sessionmaker(engine)()
 
     def init(self):
         return lambda self: None
