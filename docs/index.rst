@@ -15,3 +15,9 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+
+ReStructedText 
+==============
+
+`Syntax <http://docutils.sourceforge.net/rst.html>`_
