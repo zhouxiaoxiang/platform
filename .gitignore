@@ -61,3 +61,4 @@ tests/user/__init__.pyc
 ./system/__pycache__/conf.cpython-27-PYTEST.pyc
 ./system/conf.pyc
 ./system/log.pyc
+fabfile.pyc

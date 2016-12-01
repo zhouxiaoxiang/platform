@@ -24,9 +24,6 @@ from system.conf import Config
 from multiprocessing import Process
 
 
-logging.basicConfig(level=logging.WARN)
-
-
 def _conf(task=None):
     if task:
         config = Config(config="platform.cfg")
@@ -60,36 +57,44 @@ def _test(test=None):
 
 
 @task
+@parallel
 def doc():
     ''' Create project documents '''
 
-    loc, cmd, arg = _conf('doc')
-    local("%s -f -o %s services" % (cmd, arg))
-    local("make html -C %s" % (arg))
+    with settings(hide('running'), warn_only=True):
+        loc, cmd, arg = _conf('doc')
+        local("%s -f -o %s services" % (cmd, arg))
+        local("make html -C %s" % (arg))
 
 
 @task
+@parallel
 def sys():
     ''' Run tests with full new python environment '''
 
-    loc, cmd, arg = _conf('sys')
-    local(cmd)
+    with settings(hide('running'), warn_only=True):
+        loc, cmd, arg = _conf('sys')
+        local(cmd)
 
 
 @task
+@parallel
 def run(*args):
     ''' Run some services, eg. user '''
 
-    for service in args:
-        Process(target=_run, args=(service, )).start()
+    with settings(hide('running'), warn_only=True):
+        for service in args:
+            Process(target=_run, args=(service, )).start()
 
 
 @task
+@parallel
 def test(*args):
     ''' Run unit tests '''
 
-    if not args:
-        _test()
-    else:
-        for test in args:
-            _test(test)
+    with settings(hide('running'), warn_only=True):
+        if not args:
+            _test()
+        else:
+            for test in args:
+                _test(test)
