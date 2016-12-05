@@ -226,3 +226,4 @@ class UserService(App):
         """ Delete user """
 
         self.db.query(Users).filter(Users.conn_id == conn_id).delete()
+

@@ -1,4 +1,5 @@
 from nameko.rpc import rpc, RpcProxy
+from nameko.events import EventDispatcher, event_handler
 from dao import *
 
 
