@@ -24,7 +24,5 @@ tests/__init__.py
 tests/activity/__init__.py
 tests/machine/__init__.py
 tests/product/__init__.py
-tests/system/__init__.py
-tests/system/test_log.py
 tests/user/__init__.py
 tests/user/test_user.py

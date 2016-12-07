@@ -14,7 +14,7 @@ class _log(object):
     def connect(self):
         """ Establish a connection to db.  """
 
-        self.conn = mogo.connect(self.host)
+        self.conn = mogo.connect(self.db, self.host)
         self.log = self.conn[self.db][self.tb]
 
     def config(self, logType=""):
