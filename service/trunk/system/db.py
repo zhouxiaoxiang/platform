@@ -38,7 +38,9 @@ class Db(object):
         For others, it's db.
         """
 
-        self.engine = create_engine(self.config["database"])
+        self.engine = create_engine(self.config["database"],
+                                    pool_size=5, 
+                                    pool_recyle=3600)
         Base.metadata.create_all(self.engine)
         return scoped_session(sessionmaker(self.engine))
 
