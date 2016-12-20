@@ -60,28 +60,28 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-services.log.syslog">
-<span id="services-log-syslog-module"></span><h2>services.log.syslog module<a class="headerlink" href="#module-services.log.syslog" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-services.log.log">
+<span id="services-log-log-module"></span><h2>services.log.log module<a class="headerlink" href="#module-services.log.log" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="services.log.syslog.SyslogService">
-<em class="property">class </em><code class="descclassname">services.log.syslog.</code><code class="descname">SyslogService</code><a class="headerlink" href="#services.log.syslog.SyslogService" title="Permalink to this definition">¶</a></dt>
+<dt id="services.log.log.LogService">
+<em class="property">class </em><code class="descclassname">services.log.log.</code><code class="descname">LogService</code><a class="headerlink" href="#services.log.log.LogService" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">system.app.App</span></code></p>
 <p>Support all syslog.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nameko.standalone.rpc</span> <span class="k">import</span> <span class="n">ClusterRpcProxy</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;AMQP_URI&quot;</span><span class="p">:</span><span class="s2">&quot;amqp://guest:guest@localhost&quot;</span><span class="p">}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">ClusterRpcProxy</span><span class="p">(</span><span class="n">CONFIG</span><span class="p">)</span> <span class="k">as</span> <span class="n">services</span><span class="p">:</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">result</span> <span class="o">=</span> <span class="n">services</span><span class="o">.</span><span class="n">syslog_service</span><span class="o">.</span><span class="n">add</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">result</span> <span class="o">=</span> <span class="n">services</span><span class="o">.</span><span class="n">log_service</span><span class="o">.</span><span class="n">add_log</span><span class="p">({</span><span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;info&quot;</span><span class="p">})</span>
 </pre></div>
 </div>
 <dl class="method">
-<dt id="services.log.syslog.SyslogService.add">
-<code class="descname">add</code><span class="sig-paren">(</span><em>content</em><span class="sig-paren">)</span><a class="headerlink" href="#services.log.syslog.SyslogService.add" title="Permalink to this definition">¶</a></dt>
+<dt id="services.log.log.LogService.add_log">
+<code class="descname">add_log</code><span class="sig-paren">(</span><em>content</em><span class="sig-paren">)</span><a class="headerlink" href="#services.log.log.LogService.add_log" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a log.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="services.log.syslog.SyslogService.name">
-<code class="descname">name</code><em class="property"> = 'syslog_service'</em><a class="headerlink" href="#services.log.syslog.SyslogService.name" title="Permalink to this definition">¶</a></dt>
+<dt id="services.log.log.LogService.name">
+<code class="descname">name</code><em class="property"> = 'log_service'</em><a class="headerlink" href="#services.log.log.LogService.name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

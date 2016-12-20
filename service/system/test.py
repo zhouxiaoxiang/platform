@@ -3,8 +3,6 @@ import mongomock
 from mock import *
 from pytest import *
 from mockredis import *
-from nameko.rpc import rpc, RpcProxy
-from nameko.events import EventDispatcher, event_handler
 
 class Mock_app(object):
     """
@@ -40,13 +38,13 @@ class Mock_app(object):
         self.service = name()
         return self.service
 
-    def get(self, attr):
-        attr.side_effect = self.get_service
+    def get_attr(self, attr):
+        attr.side_effect = self.get_effect
 
-    def get_service(self, args):
+    def get_effect(self, args):
         self.get_result = args
         
-    def set(self, attr, value):
+    def set_attr(self, attr, value):
         attr.return_value = value
 
     def start(self, patch):

@@ -4,10 +4,10 @@ services.log package
 Submodules
 ----------
 
-services.log.syslog module
---------------------------
+services.log.log module
+-----------------------
 
-.. automodule:: services.log.syslog
+.. automodule:: services.log.log
     :members:
     :undoc-members:
     :show-inheritance:
