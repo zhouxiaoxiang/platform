@@ -68,3 +68,7 @@
 
 - Extract all tasks arguments
 -- Control all tasks from configuration files.
+
+1.4
+
+- Support python 3.5.2

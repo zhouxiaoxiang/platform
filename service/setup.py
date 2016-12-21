@@ -13,7 +13,7 @@ with open('requirements.txt') as f:
     requires = f.read()
 
 
-setup(name='platform', version='1.3',
+setup(name='platform', version='1.4',
       long_description=long_description,
       packages=find_packages(),
       include_package_data=True,
