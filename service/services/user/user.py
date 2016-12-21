@@ -8,9 +8,6 @@ class UserService(App):
     """
     Support all user operations.
 
-    Examples
-    --------
-    
     >>> from nameko.standalone.rpc import ClusterRpcProxy
     >>> CONFIG = {"AMQP_URI":"amqp://guest:guest@localhost"}
     >>> with ClusterRpcProxy(CONFIG) as services:

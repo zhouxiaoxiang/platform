@@ -20,7 +20,6 @@ import sys
 import logging
 from fabric.api import *
 from os import path, walk
-from multiprocessing import Process
 
 
 def _run(service):
@@ -68,12 +67,11 @@ def doc():
 
 @task
 @parallel
-def run(*args):
+def run(service):
     ''' Run some services, eg. user '''
 
     with settings(hide('running'), warn_only=True):
-        for service in args:
-            Process(target=_run, args=(service, )).start()
+        _run(service)
 
 
 @task
