@@ -66,7 +66,7 @@ requires = [
 
 setup(
     name='service-platform',
-    version='1.5',
+    version='1.6',
     author='Eric.Zhou',
     author_email='xiaoxiang.cn@gmail.com',
     url='https://github.com/zhouxiaoxiang/platform',
