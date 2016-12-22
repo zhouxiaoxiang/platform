@@ -1,0 +1,38 @@
+Metadata-Version: 1.0
+Name: service-platform
+Version: 1.5
+Summary: Cereson Platform.
+Home-page: https://github.com/zhouxiaoxiang/platform
+Author: Eric.Zhou
+Author-email: xiaoxiang.cn@gmail.com
+License: UNKNOWN
+Description: # PLATFORM README
+        -----------------
+        
+        Apply microservices and TDD makes enterprises more productive.
+        
+        - Install packages.
+        
+        ./setup.py develop
+        
+        - Show all callable commands.
+        
+        fab -l
+        
+        - Run some services.
+        
+        fab run:user
+        
+        - Run unit tests.
+        
+        fab test
+        
+        - Run system test.
+        
+        fab sys
+        
+        - Create platform documents.
+        
+        fab doc
+        
+Platform: UNKNOWN
