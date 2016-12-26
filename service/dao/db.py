@@ -1,4 +1,4 @@
-from system.db import *
+from oriole.db import *
 
 
 class ConnEvents(Base):

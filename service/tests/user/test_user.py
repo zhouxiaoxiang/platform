@@ -1,5 +1,5 @@
 from services.user.user import *
-from system.test import *
+from oriole.test import *
 
 
 @fixture

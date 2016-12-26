@@ -1,5 +1,5 @@
-from system.app import *
-from system.log import Log
+from oriole.app import *
+from oriole.log import Log
 
 
 class LogService(App):

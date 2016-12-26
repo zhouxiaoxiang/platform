@@ -60,12 +60,39 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="module-services.log.conn_web_log">
+<span id="services-log-conn-web-log-module"></span><h2>services.log.conn_web_log module<a class="headerlink" href="#module-services.log.conn_web_log" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="services.log.conn_web_log.ConnWebLogService">
+<em class="property">class </em><code class="descclassname">services.log.conn_web_log.</code><code class="descname">ConnWebLogService</code><a class="headerlink" href="#services.log.conn_web_log.ConnWebLogService" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">oriole.app.App</span></code></p>
+<p>Support all syslog.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nameko.standalone.rpc</span> <span class="k">import</span> <span class="n">ClusterRpcProxy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;AMQP_URI&quot;</span><span class="p">:</span><span class="s2">&quot;amqp://guest:guest@localhost&quot;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">ClusterRpcProxy</span><span class="p">(</span><span class="n">CONFIG</span><span class="p">)</span> <span class="k">as</span> <span class="n">services</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">result</span> <span class="o">=</span> <span class="n">services</span><span class="o">.</span><span class="n">conn_web_log_service</span><span class="o">.</span><span class="n">add_log</span><span class="p">({</span><span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;info&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="services.log.conn_web_log.ConnWebLogService.add_log">
+<code class="descname">add_log</code><span class="sig-paren">(</span><em>content</em><span class="sig-paren">)</span><a class="headerlink" href="#services.log.conn_web_log.ConnWebLogService.add_log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a log.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="services.log.conn_web_log.ConnWebLogService.name">
+<code class="descname">name</code><em class="property"> = 'conn_web_log_service'</em><a class="headerlink" href="#services.log.conn_web_log.ConnWebLogService.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-services.log.log">
 <span id="services-log-log-module"></span><h2>services.log.log module<a class="headerlink" href="#module-services.log.log" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="services.log.log.LogService">
 <em class="property">class </em><code class="descclassname">services.log.log.</code><code class="descname">LogService</code><a class="headerlink" href="#services.log.log.LogService" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">system.app.App</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">oriole.app.App</span></code></p>
 <p>Support all syslog.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nameko.standalone.rpc</span> <span class="k">import</span> <span class="n">ClusterRpcProxy</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;AMQP_URI&quot;</span><span class="p">:</span><span class="s2">&quot;amqp://guest:guest@localhost&quot;</span><span class="p">}</span>
@@ -82,6 +109,39 @@
 <dl class="attribute">
 <dt id="services.log.log.LogService.name">
 <code class="descname">name</code><em class="property"> = 'log_service'</em><a class="headerlink" href="#services.log.log.LogService.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-services.log.user_event_log">
+<span id="services-log-user-event-log-module"></span><h2>services.log.user_event_log module<a class="headerlink" href="#module-services.log.user_event_log" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="services.log.user_event_log.UserEventLogService">
+<em class="property">class </em><code class="descclassname">services.log.user_event_log.</code><code class="descname">UserEventLogService</code><a class="headerlink" href="#services.log.user_event_log.UserEventLogService" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">oriole.app.App</span></code></p>
+<p>Support all syslog.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">nameko.standalone.rpc</span> <span class="k">import</span> <span class="n">ClusterRpcProxy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">CONFIG</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;AMQP_URI&quot;</span><span class="p">:</span><span class="s2">&quot;amqp://guest:guest@localhost&quot;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">ClusterRpcProxy</span><span class="p">(</span><span class="n">CONFIG</span><span class="p">)</span> <span class="k">as</span> <span class="n">services</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">result</span> <span class="o">=</span> <span class="n">services</span><span class="o">.</span><span class="n">user_event_log_service</span><span class="o">.</span><span class="n">add_log</span><span class="p">({</span><span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;info&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="services.log.user_event_log.UserEventLogService.add_log">
+<code class="descname">add_log</code><span class="sig-paren">(</span><em>content</em><span class="sig-paren">)</span><a class="headerlink" href="#services.log.user_event_log.UserEventLogService.add_log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a log.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="services.log.user_event_log.UserEventLogService.get_log">
+<code class="descname">get_log</code><span class="sig-paren">(</span><em>query</em><span class="sig-paren">)</span><a class="headerlink" href="#services.log.user_event_log.UserEventLogService.get_log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get logs.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="services.log.user_event_log.UserEventLogService.name">
+<code class="descname">name</code><em class="property"> = 'user_event_log_service'</em><a class="headerlink" href="#services.log.user_event_log.UserEventLogService.name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -149,7 +209,7 @@
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016, Cereson.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5b1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
         </div>
         <div class="clearer"></div>

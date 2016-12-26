@@ -1,28 +1,24 @@
-# PLATFORM README
+# README
 -----------------
 
 Apply microservices and TDD makes enterprises more productive.
 
 - Install packages.
 
-./setup.py develop
+easy_install oriole
 
 - Show all callable commands.
 
-fab -l
+oriole -h
 
 - Run some services.
 
-fab run:user
+oriole run user
 
 - Run unit tests.
 
-fab test
-
-- Run system test.
-
-fab sys
+oriole test
 
 - Create platform documents.
 
-fab doc
+oriole doc
